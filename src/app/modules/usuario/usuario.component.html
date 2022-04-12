@@ -1,0 +1,199 @@
+
+
+<div>
+  <div class="dc">
+    <div></div>
+    <div class="documentContainerStyle">
+      <div class="columns is-mobile documentColumnHeader">
+        
+        <div class="column is-6">
+          <div class="level-left">
+            <div class="page-title">Usuarios</div>
+          </div>
+        </div>
+        
+        <div class="column is-6">
+          <div class="level-right">
+            <div class="control search has-icons-left has-icons-right search-input rightToLeft">
+              <div data-toggle="tooltip" data-placement="bottom" title="Buscar"><input
+                  class="input search-input fontAwesome" type="text" placeholder="" value="" [(ngModel)]="query" id="listSearch"><span
+                  class="icon is-small is-left"><img class="search-icon" src="assets/images/buscar.svg"></span><span
+                  class="clear-search icon is-small"></span>
+              </div>
+            </div>
+            <button type="button" class="btn-icon" placement="bottom" [autoClose]="'outside'" [ngbPopover]="clickImgTemp" triggers="manual"
+              #p1="ngbPopover" (click)="abrirpop(p1)" data-toggle="tooltip" data-placement="bottom"
+              title="Filtro por Perfil">
+              <img class="image-icon" src="assets/images/filtro.svg">
+            </button>
+            <button type="button" class="ns-btn btn-cre" 
+              (click)="openAgregarUsuario()">Agregar</button>
+          </div>
+          
+        </div>
+        
+      </div>
+    </div>
+    
+
+
+
+    <div class="columns document-list-container">
+      <div class="documentTableStyle">
+        <div class="tableHeaderStyle columns">
+          <div class="column is-4">Usuario </div>
+          <div class="column is-3">Nombre </div>
+          <div class="column is-3">Apellidos</div>
+          <div class="column is-2"></div>
+          <div class="column is-hidden-touch"></div>
+        </div>
+        <div *ngFor="let usuario of listausuarios | searchFilter: query | paginate: config">
+          <div class="documentRowStyle columns" *ngIf="usuario.login" (click)="openEditarUsuario(usuario)">
+            <div class="column is-4">{{usuario.login}}</div>
+            <div class="column is-3">{{usuario.nombre}}</div>
+            <div class="column is-3">{{usuario.apellido}}</div>
+            <div class="column is-2"><!-- <button class="ns-btn btn-danger --small" (click)="openBorrarUsuario(usuario.id,$event)" data-toggle="tooltip" data-placement="bottom"
+              title="Borra el Usuario Seleccionado">Eliminar</button> --></div>
+            <div class="column tag-row"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pagination-template #p="paginationApi"  
+                        [id]="config.id"          
+                        (pageChange)="config.currentPage = $event">
+      <div class="tablePaginationStyle">
+        <div class="level is-mobile paging">
+          <div class="level-left">
+            <div class="level-item">
+              <div [ngSwitch]="p.isFirstPage()">
+                <div *ngSwitchCase="true">
+                  <a class="button svg-button-rounded" alt="previous" disabled >
+                    <div class="injected icon">
+                      <div><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7px"
+                          height="12px" viewBox="0 0 7 12" version="1.1" class="injected-svg"
+                          data-src="https://ncontracts-cdn.ncontracts.com/arrow-prev.svg">
+                          <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                          <title>arrow-prev</title>
+                          <desc>Created with Sketch.</desc>
+                          <g id="Pagination" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Within-Pages-+-Items-Dropdown" transform="translate(-64.000000, -57.000000)"
+                              fill="#4A4A4A">
+                              <g id="BTN-Round-Prev" transform="translate(54.000000, 48.000000)">
+                                <polygon id="arrow-prev"
+                                  points="17 19.608 15.6634304 21 10 15 15.6634304 9 17 10.416 12.6504854 15"></polygon>
+                              </g>
+                            </g>
+                          </g>
+                        </svg></div>
+                    </div>
+                  </a>
+                </div>
+                <div *ngSwitchCase="false">
+                  <a class="button svg-button-rounded" alt="previous" (click)="p.previous();actualizarrango(config.itemsPerPage)">
+                    <div class="injected icon">
+                      <div><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7px"
+                          height="12px" viewBox="0 0 7 12" version="1.1" class="injected-svg"
+                          data-src="https://ncontracts-cdn.ncontracts.com/arrow-prev.svg">
+                          <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                          <title>arrow-prev</title>
+                          <desc>Created with Sketch.</desc>
+                          <g id="Pagination" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Within-Pages-+-Items-Dropdown" transform="translate(-64.000000, -57.000000)"
+                              fill="#4A4A4A">
+                              <g id="BTN-Round-Prev" transform="translate(54.000000, 48.000000)">
+                                <polygon id="arrow-prev"
+                                  points="17 19.608 15.6634304 21 10 15 15.6634304 9 17 10.416 12.6504854 15"></polygon>
+                              </g>
+                            </g>
+                          </g>
+                        </svg></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div [ngSwitch]="p.isLastPage()">
+                <div *ngSwitchCase="true">
+                  <a class="button svg-button-rounded" alt="next" disabled>
+                    <div class="injected icon">
+                      <div><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7px"
+                          height="12px" viewBox="0 0 7 12" version="1.1" class="injected-svg"
+                          data-src="https://ncontracts-cdn.ncontracts.com/arrow-next.svg">
+                          <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                          <title>arrow-next</title>
+                          <desc>Created with Sketch.</desc>
+                          <g id="Pagination" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Within-Pages-+-Items-Dropdown" transform="translate(-103.000000, -57.000000)"
+                              fill="#4A4A4A">
+                              <g id="BTN-Round-Next" transform="translate(91.000000, 48.000000)">
+                                <polygon id="arrow-next"
+                                  transform="translate(15.500000, 15.000000) scale(-1, 1) translate(-15.500000, -15.000000) "
+                                  points="19 19.608 17.6634304 21 12 15 17.6634304 9 19 10.416 14.6504854 15"></polygon>
+                              </g>
+                            </g>
+                          </g>
+                        </svg></div>
+                    </div>
+                  </a>
+                </div>
+                <div *ngSwitchCase="false">
+                  <a class="button svg-button-rounded" alt="next" (click)="p.next();actualizarrango(config.itemsPerPage)">
+                    <div class="injected icon">
+                      <div><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="7px"
+                          height="12px" viewBox="0 0 7 12" version="1.1" class="injected-svg"
+                          data-src="https://ncontracts-cdn.ncontracts.com/arrow-next.svg">
+                          <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+                          <title>arrow-next</title>
+                          <desc>Created with Sketch.</desc>
+                          <g id="Pagination" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Within-Pages-+-Items-Dropdown" transform="translate(-103.000000, -57.000000)"
+                              fill="#4A4A4A">
+                              <g id="BTN-Round-Next" transform="translate(91.000000, 48.000000)">
+                                <polygon id="arrow-next"
+                                  transform="translate(15.500000, 15.000000) scale(-1, 1) translate(-15.500000, -15.000000) "
+                                  points="19 19.608 17.6634304 21 12 15 17.6634304 9 19 10.416 14.6504854 15"></polygon>
+                              </g>
+                            </g>
+                          </g>
+                        </svg></div>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+            <div class="level-item">
+              <p >Mostrar {{inicio}} - {{fin}} de {{totalreg}} registros</p>
+            </div>
+          </div>
+          <div class="items">
+            <div class="dropdown dropdown-style items-per-page-dropdown" >
+              <select name="itemspage" class="dropdown-items" #mySelect
+              (change)='actualizarrango(mySelect.value)'>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+              </select>
+            </div>
+            <label >Registros por página</label>
+          </div>
+          
+        </div>
+      </div>
+    </pagination-template>
+  </div>
+</div>
+<ng-template #clickImgTemp>
+
+  <div style="text-align: center;margin: 5px;color:#3A3D5F">Perfiles</div>
+  <select name="perfiles" id="perfiles">
+    <option value="1">administrador</option>
+    <option value="2">miguel</option>
+    <option value="3">perfil1</option>
+  </select> 
+
+</ng-template>
+
+
+

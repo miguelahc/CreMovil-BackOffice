@@ -1,0 +1,80 @@
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { map } from "rxjs/operators";
+import { environment } from "../../environments/environment.prod";
+import { modeloperfil,modeloperfilactualizar,modeloperfilinsertar } from "../model/modperfil";
+
+@Injectable({
+    providedIn: 'root'
+})
+
+export class servicioperfil{
+    private valorperfil:modeloperfil;
+    private listaperfil:modeloperfil[]=[];
+     
+    private cadenahttp:string;
+    constructor(private http: HttpClient){
+        
+        this.listaperfil= [];
+        
+    } 
+
+    getperfil(id:number){
+        this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/RetornaPerfil?idperfil="+id
+        return this.http.post<any>(this.cadenahttp,null).subscribe(datos => {
+            
+            this.valorperfil = datos.usuario[0];
+            console.log(datos.usuario[0]);
+            
+            return this.valorperfil;
+          });
+
+    }
+
+     getperfiles(){
+        this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/RetornaPerfiles"
+        return this.http.post<any>(this.cadenahttp,null).pipe(map(datos => {
+            console.log(datos);
+            console.log("perfiles");
+            this.listaperfil.length=0;
+            this.listaperfil=[];
+            datos.perfiles.forEach(element => {
+                this.listaperfil.push(new modeloperfil(element.idperfil,element.nombreperfil,element.descripcionperfil
+                    ,element.estadoperfil,element.fecharegistro,element.usuarioregistra
+                    ,element.fechamodificacion,element.usuariomodificacion));
+            });
+            console.log(this.listaperfil);
+            return this.listaperfil;
+            
+          }));
+     }
+
+     actualizar(perfil:modeloperfil){
+        var perfact:modeloperfilactualizar;
+         perfact=new modeloperfilactualizar(perfil.idperfil,perfil.nombreperfil,perfil.descripcionperfil,
+            perfil.estadoperfil,perfil.usuariomodificacion);
+        this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/ActualizaPerfil"
+        const headers = { 'content-type': 'application/json'}  
+        const body=JSON.stringify(perfact);
+        console.log(body)
+        return this.http.post<any>(this.cadenahttp , body,{'headers':headers});
+        
+    }
+     borrar(id:number){
+        var resp=false;
+        
+        return resp;
+     }
+
+     agregar(perfil:modeloperfil){
+        var perfact:modeloperfilinsertar;
+        perfact=new modeloperfilinsertar(perfil.nombreperfil,perfil.descripcionperfil,
+           perfil.estadoperfil,perfil.usuarioregistra);
+       this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/ActualizaPerfil"
+       const headers = { 'content-type': 'application/json'}  
+       const body=JSON.stringify(perfact);
+       console.log(body)
+       return this.http.post<any>(this.cadenahttp , body,{'headers':headers});
+       
+     }
+}

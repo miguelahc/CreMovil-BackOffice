@@ -1,0 +1,83 @@
+@import '../../shared/scss/variables';
+@import '../../shared/scss/mixin';
+
+.pside-panel-overlay {
+  .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 28;
+    
+
+    &.overlay-style-transparent {
+      background: transparent;
+    }
+
+    &.overlay-style-dim-dark {
+      background: rgba(#000, 0.3);
+    }
+
+    &.overlay-style-dim-light {
+      background: rgba(#FFF, 0.5);
+    }
+  }
+  
+  .pside-panel {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 70vw;
+    margin-right: 0;
+    background: $card-background;
+    overflow-y: auto;
+    transition: margin-right 0.3s;
+    z-index: 29;
+    @include box-shadow;
+
+    .close,
+    .content {
+      padding: 1.25rem;
+    
+    }  
+
+    .close {
+      background: $card-background;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      line-height: 1rem;
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin-top: -30px;
+      margin-bottom: 50px; 
+      
+      span {
+        cursor: pointer;
+        color: #888;
+        &:hover {
+          color: #292929;
+        }
+      }
+    }
+  }
+
+  &.collapsed {
+    .pside-panel {
+      margin-right: 70vw*-1;
+    }
+  }
+}
+
+@media screen and (max-width: 70vw) {
+  .pside-panel-overlay {
+    .pside-panel {
+      width: 100%;
+    }
+  }
+}

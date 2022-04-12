@@ -1,0 +1,21 @@
+<div style="display: block;max-width: 300px;" class="text-center">
+
+  <h2 mat-dialog-title style="text-align: center;">{{titulo}}</h2>
+
+  <mat-dialog-content>
+    
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <label>
+        {{mensaje}}
+      </label>
+    </div>
+  
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <div class="button-row" >
+      <button type="button" class="btn btn-outline-danger" style="margin: 15px;" [mat-dialog-close]="{respuesta:false}" (click)="close()">Cancelar</button>
+      <button type="button" class="btn btn-danger" style="margin: 15px;"  [mat-dialog-close]="{respuesta:true}" cdkFocusInitial>Aceptar</button>
+    </div>
+  </mat-dialog-actions>
+</div>
