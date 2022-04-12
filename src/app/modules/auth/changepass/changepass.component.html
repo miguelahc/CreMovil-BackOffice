@@ -1,0 +1,57 @@
+
+<div class="page-title-modal">Cambiar Contraseña</div>
+<hr/>
+<mat-dialog-content >
+<lib-toastify-toast-container >
+</lib-toastify-toast-container>
+<div>
+  <form id="changepassForm" [formGroup]="form">
+    <div class="form-group">
+      <div class="col-sm-6">
+        <label for="actual">Contraseña Actual<span style="font-weight:700;color:red;"> *</span></label>
+      </div>
+      <div class="col-sm-12">
+        <input formControlName="actual" type="text" class="form-control" required>
+        <div *ngIf="enviado && f.actual.errors" class="mensajevalidacion">
+          <div *ngIf="f.actual.errors.required">Debe llenar la contraseña actual</div>
+        </div>
+        
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <div class="col-sm-6">
+        <label for="nueva">Nueva Contraseña<span style="font-weight:700;color:red;"> *</span></label>
+      </div>
+      <div class="col-sm-12">
+        <input formControlName="nueva" type="password" class="form-control" required>
+        <div *ngIf="enviado && f.nueva.errors" class="mensajevalidacion">
+          <div *ngIf="f.nueva.errors.required">Nueva Contraseña es requerida y la longitud debe ser mayor a seis caracteres</div>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-group">
+      <div class="col-sm-6">
+        <label for="confirmar">Confirmar Contraseña<span style="font-weight:700;color:red;"> *</span></label>
+      </div>
+      <div class="col-sm-12">
+        <input formControlName="confirmar" type="password" class="form-control" required>
+        <div *ngIf="enviado && f.confirmar.errors" class="mensajevalidacion">
+          <div *ngIf="f.confirmar.errors.required">La confirmación de contraseña es requerida</div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+</mat-dialog-content>
+
+<div class="modal-footer" style="height:40px">
+  <button type="button" class="btn btn-outline-primary" 
+    (click)="this.close(null)">Cancelar</button>
+  <button type="button" class="btn btn-primary" 
+  (click)="this.grabar()">Guardar</button>
+</div>
+

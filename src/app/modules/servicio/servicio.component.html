@@ -1,0 +1,127 @@
+<div>
+  <div class="dc">
+    <div></div>
+    <div class="documentContainerStyle">
+      <div class="columns is-mobile documentColumnHeader">
+        <div class="column is-6">
+          <div class="level-left">
+            <div class="page-title">Servicios</div>
+          </div>
+        </div>
+        <div class="column is-6">
+          <div class="level-right">
+            <div class="control search has-icons-left has-icons-right search-input rightToLeft">
+              <div data-toggle="tooltip" data-placement="bottom" title="Buscar"><input
+                  class="input search-input fontAwesome" type="text" placeholder="" value=""><span
+                  class="icon is-small is-left"><img class="search-icon" src="assets/images/buscar.svg"></span><span
+                  class="clear-search icon is-small"></span>
+              </div>
+            </div>
+            <button type="button" class="btn-icon" placement="bottom" [ngbPopover]="clickImgTemp" triggers="manual"
+              #p1="ngbPopover" (click)="abrirpop(p1)" data-toggle="tooltip" data-placement="bottom"
+              title="Filtro por Permisos">
+              <img src="assets/images/filtro.svg">
+            </button>
+            <button type="button" class="ns-btn btn-cre" (click)="openservicio()">Agregar Servicio</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card-group" style="margin-left:-0.75rem;margin-right:-0.75rem;">
+      <div class="col-lg-3 col-md-12">
+        <!--Card-->
+        <div class="card border border-success shadow-0 text-white text-end">
+          
+          <img src="https://mdbootstrap.com/img/new/standard/nature/111.webp" class="img-fluid" />
+          <!--<div class="card-header">Featured</div>
+          <div class="card-body">
+            
+          </div>-->
+          <div class="card-img-overlay d-flex flex-column align-items-end">
+            <a style="text-align:right;background-color:red;" class="btn-icon-small"  (click)="openDialog()" data-toggle="tooltip" data-placement="bottom"
+              title="Borra el Servicio Seleccionado"><img src="assets/images/borrar.svg">
+            </a>
+          </div>
+
+          <div class="card-footer" (click)="openservicio()">
+            <div class="col-sm-12" style="display: flex;">
+              <div class="col-sm-12" >
+                <a >Ley 1886</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/.Card-->
+      </div>
+      <div class="col-lg-3 col-md-12">
+        <!--Card-->
+        <div class="card border border-success shadow-0 text-white text-end">
+          
+          <img src="https://mdbootstrap.com/img/new/standard/nature/111.webp" class="img-fluid" />
+          <!--<div class="card-header">Featured</div>
+          <div class="card-body">
+            
+          </div>-->
+          <div class="card-img-overlay d-flex flex-column align-items-end">
+            <a style="text-align:right;background-color:red;" class="btn-icon-small"  (click)="openDialog()" data-toggle="tooltip" data-placement="bottom"
+              title="Borra el Servicio Seleccionado"><img src="assets/images/borrar.svg">
+            </a>
+          </div>
+
+          <div class="card-footer" (click)="openservicio()">
+            <div class="col-sm-12" style="display: flex;">
+              <div class="col-sm-12" >
+                <a >CRE cerca de usted</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/.Card-->
+      </div>
+      <div class="col-lg-3 col-md-12">
+        <!--Card-->
+        <div class="card border border-success shadow-0 text-white text-end">
+          
+          <img src="https://mdbootstrap.com/img/new/standard/nature/111.webp" class="img-fluid" />
+          <!--<div class="card-header">Featured</div>
+          <div class="card-body">
+            
+          </div>-->
+          <div class="card-img-overlay d-flex flex-column align-items-end">
+            <a style="text-align:right;background-color:red;" class="btn-icon-small"  (click)="openDialog()" data-toggle="tooltip" data-placement="bottom"
+              title="Borra el Servicio Seleccionado"><img src="assets/images/borrar.svg">
+            </a>
+          </div>
+
+          <div class="card-footer" (click)="openservicio()">
+            <div class="col-sm-12" style="display: flex;">
+              <div class="col-sm-12" >
+                <a >App CRE Movil</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--/.Card-->
+      </div>
+      
+    
+    </div>
+  </div>
+</div>
+
+<app-side-panel-overlay></app-side-panel-overlay>
+<ng-template #clickImgTemp>
+
+  <div style="text-align: center;margin: 5px;color:#3A3D5F">Servicios</div>
+  <select name="perfiles" id="perfiles">
+    <option value="1">Habilitados</option>
+    <option value="2">Deshabilitados</option>
+  </select> 
+
+</ng-template>
+
+
+

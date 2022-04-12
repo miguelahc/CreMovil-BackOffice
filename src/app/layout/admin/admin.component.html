@@ -1,0 +1,112 @@
+
+
+<head>
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+  <link rel="apple-touch-icon" href="/Webclip.png">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link href="/./styles.css" rel="stylesheet">
+  
+</head>
+
+<body>
+
+  <div id="app" class="app">
+    <div>
+      <div class="home-page">
+        <div class="side-panel-menu" >
+          <div class="company-logo-section" style="text-align: center;" >
+            <div >
+              <img src="assets/images/logo_cabecera.png" class="logo" width="50px" height="50px">
+            </div>
+          </div>
+          <div>
+            <ul><a>
+                <li [routerLink]="['/perfil']">
+                  <div>Gestión de Seguridad</div>
+                </li>
+              </a></ul>
+            <ul class="sub-menu-item"><a  >
+                <li  [routerLink]="['/perfil']" [routerLinkActive]="['selected-menu']">
+                  <div>Perfiles</div>
+                </li>
+              </a><a >
+                <li [routerLink]="['/usuario']" [routerLinkActive]="['selected-menu']">
+                  <div>Usuarios</div>
+                </li>
+              </a></ul>
+          </div>
+          <div>
+            <ul><a >
+                <li [routerLink]="['/servicio']" [routerLinkActive]="['selected-menu']">
+                  <div>Requisitos de Servicio</div>
+                </li>
+              </a></ul>
+          </div>
+          <div>
+            <ul><a >
+                <li [routerLink]="['/puntoayp']" [routerLinkActive]="['selected-menu']">
+                  <div>Puntos de Atención</div>
+                </li>
+              </a></ul>
+          </div>
+          <div>
+            <ul><a >
+                <li [routerLink]="['/parametro']" [routerLinkActive]="['selected-menu']">
+                  <div>Parametros</div>
+                </li>
+              </a></ul>
+          </div>
+        </div>
+        <div class="content-panel">
+          <nav class="navbar navbar-main navbar-fixed-top">
+            <div >
+              <div class="top-rail-nav" >
+                <div>
+                  <div class="top-rail-icon-container" data-toggle="tooltip" data-placement="bottom"
+                  title="Ir a Inicio" [routerLink]="['/dashboard']">
+                    <div class="nav-img-container">
+                      <img
+                        src="assets/images/app-switcher.svg" alt="applications">
+                    </div>
+                    <div class="hovered-nav-icon-background"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="top-rail-icon-container" data-toggle="tooltip" data-placement="bottom"
+                  title="Cambiar Contraseña" (click)="openChangePass()"><img
+                      src="assets/images/cambiarcontrasena.svg" alt="data explorer">
+                    <div class="hovered-nav-icon-background"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="top-rail-icon-container" data-toggle="tooltip" data-placement="bottom"
+                  title="Cerrar Sesión" data-tooltip="Reports" (click)="logout()"><img
+                      src="assets/images/cerrarsesion.svg" alt="reports">
+                    <div class="hovered-nav-icon-background"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+          <div class="main-content">
+            <div class="page-wrapper" >
+              <app-title></app-title>
+              <app-breadcrumbs></app-breadcrumbs>
+              <div class="page-body">
+                <router-outlet>
+                  <app-spinner></app-spinner>
+                </router-outlet>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+

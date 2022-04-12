@@ -1,0 +1,292 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$cre-app-primary: mat-palette($mat-green);
+$cre-app-accent : mat-palette($mat-light-green);
+// The warn palette is optional (defaults to red).
+$cre-app-warn : mat-palette($mat-red);
+// Create the theme object (a Sass map containing all of the palettes).
+$cre-app-theme: mat-light-theme($cre-app-primary, $cre-app-accent, $cre-app-warn);
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($cre-app-theme);
+body.modal-open {
+	overflow: hidden;
+	position: inherit !important;
+}
+
+.home-page .side-panel-menu .company-logo-section {
+	border-bottom: none;
+}
+
+.logo {
+	width: 109px !important;
+	margin-left: -14px;
+	margin-top: 13px;
+}
+
+.home-page .side-panel-menu .company-logo-section {
+	height: 164px !important;
+	padding: 15px 13px 15px 14px;
+	border-bottom: none !important;
+	margin-bottom: 10px;
+}
+
+.navbar.navbar-fixed-top.navbar-main {
+	height: 60px !important;
+}
+
+.home-page .content-panel .main-content {
+	margin-top: 60px !important;
+	height: calc(100vh - 60px) !important;
+}
+
+.page-title {
+	color: #2F3648;
+	font-size: 30px;
+	font-weight: 300;
+	letter-spacing: 0.24px;
+	line-height: 41px;
+    margin-left: -0.75rem;
+}
+
+.page-title-modal {
+	color: #2F3648;
+	font-size: 18px;
+	font-weight: 600;
+	letter-spacing: 0.24px;
+	line-height: 20px;
+    text-align: center;
+    margin-top: -0.5rem;
+    margin-bottom: -0.5rem;
+}
+
+.ns-btn {	
+	font-weight: 700;
+	font-size: 14px;
+	padding: 12px 25px;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	border: 1px solid #cbcbcb;
+	border-radius: 2px;
+	transition: background-color 75ms ease-out;
+    text-decoration: none !important;
+}
+
+.--small{
+    font-size: 12px;
+    padding: 7px 21px;
+}
+
+.btn-cre {
+    background-color: #fff;
+    color: #84BD00;
+    border-color: #84BD00;
+  }
+
+  .btn-cre:hover {
+    color: #fff;
+    background-color: #84BD00;
+    border-color: #84BD00;
+  }
+
+
+  
+
+.btn-solid{
+    background-color: #84BD00;
+    color: #ffffff;
+}
+
+.btn-danger{
+    background-color: #910112;
+    color: #ffffff;
+    border-radius: var(--border-radius);
+}
+
+  
+  
+.btn-outline-danger{
+    color: #910112;
+    background-color: #ffffff;
+    border-color: #910112;
+}
+
+.btn-outline-danger:hover{
+    background-color: #910112;
+    color: #ffffff;
+    border-color:#ffffff;
+}
+
+
+.btn-icon {
+	display: block;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin: 5px;
+	background-color: white;
+	border: solid 1px #cbcbcb !important;
+	img {
+		height: 13px;
+	}
+}
+
+.btn-icon-small {
+	display: block;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin: 5px;
+	background-color: white;
+	border: solid 1px #cbcbcb !important;
+	img {
+		height: 13px;
+        
+	}
+}
+.button-row{
+    display: table-cell;
+    width: 80vw;
+}
+
+
+.text-end{
+    text-align: end;
+    padding-right: 5px;
+}
+
+
+.tablePaginationStyle{
+    select{
+        height: 30px;
+        width: 47px;
+        font-size: 14px;
+        background-color: #fff;
+        border: solid 1px #cbcbcb;
+    }
+
+    .items{
+        font-size: 14px;
+        font-family: open sans;
+    }
+
+    label{
+        padding-top: 4px;
+        padding-left: 4px;
+    }
+}
+
+
+.search-input{
+    height: 40px;
+    border-radius: 50px;
+    border: solid 1px #cbcbcb;
+    background-color: #fff;
+    padding: 3px;
+    overflow: hidden;
+
+    span{
+        margin-left: 7px;
+        margin-top: 5px;
+    }
+    input{
+        border: solid 1px #fff;
+        box-shadow: none;
+        padding-left: 40px !important;
+
+        &:hover{
+            border: none !important;
+        }
+
+        &:focus{
+            box-shadow: none;
+            border: none !important;
+        }
+    }    
+}
+
+.selected-menu{
+    background-color: #84BD00;
+    font-weight: 700;
+}
+
+.form-group{
+    label{
+        color: #2F3648;
+        font-size: 14px;
+        font-weight: bold;        
+        margin-bottom: 8px;
+    }
+
+    input{
+
+            display: block;
+            width: 100%;
+            height: 40px;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+          
+    }
+}
+
+:root {
+    --color-green: #00a878;
+    --color-red: #fe5e41;
+    --color-button: #fdffff;
+    --color-black: #000;
+}
+.switch-button {
+    display: inline-block;
+}
+.switch-button .switch-button__checkbox {
+    display: none;
+}
+.switch-button .switch-button__label {
+    background-color: var(--color-red);
+    width: 5rem;
+    height: 3rem;
+    border-radius: 3rem;
+    display: inline-block;
+    position: relative;
+}
+.switch-button .switch-button__label:before {
+    transition: .2s;
+    display: block;
+    position: absolute;
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--color-button);
+    content: '';
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 0px 1px var(--color-black);
+}
+.switch-button .switch-button__checkbox:checked + .switch-button__label {
+    background-color: var(--color-green);
+}
+.switch-button .switch-button__checkbox:checked + .switch-button__label:before {
+    transform: translateX(2rem);
+}
+
+.mensajevalidacion {
+    color:red;
+    font-size: 10;
+    text-align: left;
+    margin: 2px;
+}
+
