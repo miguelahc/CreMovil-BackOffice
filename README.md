@@ -1,8 +1,10 @@
-# Version de Node :
+#INSTRUCCIONES
 
-Este proyecto usa la version de node  [Node 20.20.2](https://nodejs.org/en/blog/release/v12.20.2/ version 12.20.2.
+## Version de Node :
 
-# Version de Angular CLI :
+Este proyecto usa la version de node  [Node 12.20.2](https://nodejs.org/en/blog/release/v12.20.2/ version 12.20.2.
+
+## Version de Angular CLI :
 
 Este proyecto usa la version de node  [Angular CLI 12.2.6](https://angular.io/cli version 12.2.6
 
