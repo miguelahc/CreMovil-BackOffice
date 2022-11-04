@@ -24,7 +24,7 @@ export class servicioperfil{
         return this.http.post<any>(this.cadenahttp,null).subscribe(datos => {
             
             this.valorperfil = datos.usuario[0];
-            console.log(datos.usuario[0]);
+            
             
             return this.valorperfil;
           });
@@ -34,8 +34,7 @@ export class servicioperfil{
      getperfiles(){
         this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/RetornaPerfiles"
         return this.http.post<any>(this.cadenahttp,null).pipe(map(datos => {
-            console.log(datos);
-            console.log("perfiles");
+            
             this.listaperfil.length=0;
             this.listaperfil=[];
             datos.perfiles.forEach(element => {
@@ -43,7 +42,24 @@ export class servicioperfil{
                     ,element.estadoperfil,element.fecharegistro,element.usuarioregistra
                     ,element.fechamodificacion,element.usuariomodificacion));
             });
-            console.log(this.listaperfil);
+            
+            return this.listaperfil;
+            
+          }));
+     }
+
+     getperfilesfiltro(Id:string){
+        this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/RetornaPerfiles"
+        return this.http.post<any>(this.cadenahttp,null).pipe(map(datos => {
+            this.listaperfil.length=0;
+            this.listaperfil=[];
+            datos.perfiles.forEach(element => {
+                if (element.estadoperfil==Id){
+                    this.listaperfil.push(new modeloperfil(element.idperfil,element.nombreperfil,element.descripcionperfil
+                        ,element.estadoperfil,element.fecharegistro,element.usuarioregistra
+                        ,element.fechamodificacion,element.usuariomodificacion));
+                }
+            });
             return this.listaperfil;
             
           }));
@@ -56,15 +72,32 @@ export class servicioperfil{
         this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/ActualizaPerfil"
         const headers = { 'content-type': 'application/json'}  
         const body=JSON.stringify(perfact);
-        console.log(body)
+        
         return this.http.post<any>(this.cadenahttp , body,{'headers':headers});
         
     }
      borrar(id:number){
-        var resp=false;
+         
+        this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/EliminarPerfil?IdPerfil="+id
+        return this.http.post<any>(this.cadenahttp,null);
         
-        return resp;
      }
+
+     habilitar(id:number){
+        var resp=false;
+       this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/HabilitarPerfil?IdPerfil="+id
+       return this.http.post<any>(this.cadenahttp,null);
+       
+    }
+
+    deshabilitar(id:number){
+        
+       this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/DeshabilitarPerfil?IdPerfil="+id
+       return this.http.post<any>(this.cadenahttp,null);
+       
+    }
+
+
 
      agregar(perfil:modeloperfil){
         var perfact:modeloperfilinsertar;
@@ -73,7 +106,7 @@ export class servicioperfil{
        this.cadenahttp=environment.apiURL + "/clwprd/ws_pagosweb/cre.movilapp/ActualizaPerfil"
        const headers = { 'content-type': 'application/json'}  
        const body=JSON.stringify(perfact);
-       console.log(body)
+       
        return this.http.post<any>(this.cadenahttp , body,{'headers':headers});
        
      }

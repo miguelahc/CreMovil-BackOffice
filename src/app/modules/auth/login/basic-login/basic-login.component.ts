@@ -4,6 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 import { servicioautenticacion } from '../../../../../app/services/servicioautenticacion';
+import { modpermiso } from '../../../../model/modpermiso';
+import { serviciopermiso } from '../../../../../app/services/serviciopermiso';
+import { serviciousuarioperfil } from '../../../../../app/services/serviciousuarioperfil';
+import { servicioperfilpermiso } from '../../../../../app/services/servicioperfilpermiso';
+import { ToastrService } from 'ngx-toastr';
+import { servicioperfil } from '../../../../../app/services/servicioperfil';
+import { modeloperfil } from '../../../../model/modperfil';
 
 @Component({
   selector: 'app-basic-login',
@@ -16,15 +23,23 @@ export class BasicLoginComponent  implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
-
+  listapermisos:modpermiso[]=[];
+  
+  listaperfiles:modeloperfil[]=[];
   constructor(
       private formBuilder: FormBuilder,
       private route: ActivatedRoute,
       private router: Router,
-      private authenticationService: servicioautenticacion
+      private authenticationService: servicioautenticacion,
+      private servpermisos:serviciopermiso,
+      private servperfil:servicioperfil,
+      private servusuperf:serviciousuarioperfil,
+      private servperfpermiso:servicioperfilpermiso,
+      private mensaje:ToastrService
   ) { 
       // redirect to home if already logged in
-      console.log(this.authenticationService.userValue);
+      
+      
       if (this.authenticationService.userValue) { 
           this.router.navigate(['/']);
       }
@@ -44,28 +59,42 @@ export class BasicLoginComponent  implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    console.log(this.f.username.value);
-    console.log(this.f.password.value);
-      this.submitted = true;
-      console.log("entro");
+    
+    this.submitted = true;
+    
 
-      // stop here if form is invalid
-      if (this.loginForm.invalid) {
-          console.log("entro falso directo");
-          return;
-      }
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+        
+        return;
+    }
 
-      this.loading = true;
-      console.log(this.f.username.value);
-      console.log(this.f.password.value);
-      this.authenticationService.login(this.f.username.value, this.f.password.value)
-          if (this.authenticationService.user!=null){
-                  this.router.navigate([this.returnUrl]);
-              }
-              else{
-                  this.loading=false;
-                  return;
-              }
+    this.loading = true;
+    this.authenticationService.login(this.f.username.value, this.f.password.value,()=>{
+        
+        
+            
+        if (this.authenticationService.userValue!=null){
+            this.servperfil.getperfiles()
+            .subscribe(
+            res => {
+                this.listaperfiles = res;
+                localStorage.setItem('perfiles',JSON.stringify(this.listaperfiles));
+            
+            });
+            this.router.navigate([this.returnUrl]);
+        }
+        else{
+            this.mensaje.error("Usuario o Contraseña erroneos");
+            this.loading=false;
+            
+            return;
+        }
+        
+        
+    });
               
   }
+
+  
 }

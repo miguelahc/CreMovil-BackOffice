@@ -1,14 +1,20 @@
 <div class="page-title-modal">Datos Servicio</div>
 <mat-dialog-content>
-
-<div>
-  <form>
+<div class="contenedor" id="spinner" *ngIf="load" >
+  <div class="lds-dual-ring"><span style="font-size:25px">Cargando</span></div>
+</div>
+<div *ngIf="!load">
+  <form id="editarrequisitoForm" [formGroup]="form">
     <div class="form-group">
       <div class="col-sm-2">
         <label for="nombre">Nombre</label>
       </div>
       <div class="col-sm-12">
-        <input formControlName="nombre" id="nombre" type="text" class="form-control">
+        <input formControlName="nombre"  type="text" class="form-control" [maxlength]="70" required>
+        <div *ngIf="enviado && f.nombre.errors" class="mensajevalidacion">
+          <div *ngIf="f.nombre.errors.required">El campo nombre debe ser llenado</div>
+          <div *ngIf="f.nombre.errors.solo">El campo nombre no debe contener solo espacios</div>
+        </div>
       </div>
       
     </div>
@@ -18,50 +24,43 @@
     <div class="form-group">
       <div class="row text-center">
         
-        
-          <div class="col-sm-3 text-center">
+        <ng-container ngSwitch="_requisito.idimagen">
+          <div class="col-sm-3" *ngSwitchCase="0">
             <span>Portada</span><br>
-            <input id="File_Portada" type="file" class="fileClass" style="display: none;" accept=".png,.jpg,jpeg,.bmp,.gif">
-            <img id="Img_Portada" style="width:226px; height:124px;" src="assets/images/add_imagen.jpg" data-nueva="False" data-id="0" data-tipo="1" onclick="$('#File_Portada').click();">
-            <br>
-            <span>Tamaño de imagen: 640 x 322 px.</span>
-  
+            <input id="imagenportada" type="file" class="fileClass detalle" style="display: none;" accept=".jpg,jpeg,.bmp,.gif" >
+              <img id="idimagen" style="width:226px; height:124px;margin-right:2.5px;cursor:pointer;" src="assets/images/add_imagen.jpg" (click)="imagenportada(_requisito.idimagen);">
+              <br>
+              <span>Tamaño de imagen: 640 x 322 px.</span>
+            </div>
+          
+          <div class="col-sm-3" *ngSwitchDefault>
+            <span>Portada</span><br>
+            <input id="imagenportada" type="file" class="fileClass detalle" style="display: none;" accept=".jpg,jpeg,.bmp,.gif" >
+              <img id="idimagen" style="width:226px; height:124px;margin-right:2.5px;cursor:pointer;" [src]="'data:image/gif;base64,'+_requisito.imagenfisica" (click)="imagenportada(_requisito.idimagen);">
+              <br>
+              <span>Tamaño de imagen: 640 x 322 px.</span>
           </div>
+        </ng-container>
+          
           <div class="col-sm-1"></div>
           <div class="col-sm-8">
             <span>Imágenes</span>
-            <div class="row text-center">
-              <div class="col-sm-3">
-                <input id="File_Detalle_1" type="file" class="fileClass detalle" style="display: none;" data-nro="1" accept=".png,.jpg,jpeg,.bmp,.gif">
-                  <img id="Img_Detalle_1" style="width:226px; height:124px;margin-right:2.5px;cursor:pointer;" src="assets/images/add_imagen.jpg" data-nueva="False" data-id="0" data-tipo="2" onclick="$('#File_Detalle_1').click();">
-                  <div id="divBorrar_1" class="eliminar" style="display:none">
-                      <img title="Borrar" src="assets/images/eliminar_img.jpg" onclick="Borrar('File_Detalle_1', 'Img_Detalle_1', '/BackOfficeCre/Content/Imagenes/add_img2.png', 'divBorrar_1','File_Detalle_1' )">
-                  </div>
-              </div>
+            <div class="row text-center" >
+              <ng-container ngSwitch="{{item.idimagen}}" *ngFor="let item of listadetalleimagen;let i=index">
+                <div class="col-sm-3" *ngSwitchCase="0">
+                  <input [id]="'File'+i" type="file" class="fileClass detalle" style="display: none;" accept=".jpg,jpeg,.bmp,.gif">
+                    <img id="item.idimagen" style="width:226px; height:124px;margin-right:2.5px;cursor:pointer;" src="assets/images/add_imagen.jpg"  (click)="imagen(i);">
+                </div>
+                <div class="col-sm-3" *ngSwitchDefault>
+                  <input [id]="'File'+i" type="file" class="fileClass detalle" style="display: none;" accept=".jpg,jpeg,.bmp,.gif">
+                    <img id="item.idimagen" style="width:226px; height:124px;margin-right:2.5px;cursor:pointer;" [src]="'data:image/gif;base64,'+item.imagenfisica"  (click)="imagen(i);">
+                    <div class="eliminar" >
+                        <img title="Borrar" src="assets/images/eliminar_img.jpg" (click)="Borrar(i)">
+                    </div>
+                </div>
+              </ng-container>
             
-              <div class="col-sm-3">
-                <input id="File_Detalle_2" type="file" class="fileClass detalle" style="display: none;" data-nro="2" accept=".png,.jpg,jpeg,.bmp,.gif">
-                  <img id="Img_Detalle_2" style="width:226px; height:124px;margin-right:2.5px;cursor:pointer;" src="assets/images/add_imagen.jpg">
-                  <div id="divBorrar_2" class="eliminar" style="display:none">
-                      <img title="Borrar" src="assets/images/eliminar_img.jpg" >
-                  </div>
-              </div>
               
-              <div  class="col-sm-3">
-                <input id="File_Detalle_3" type="file" class="fileClass detalle" style="display: none;" data-nro="3" accept=".png,.jpg,jpeg,.bmp,.gif">
-                  <img id="Img_Detalle_3" style="width:226px; height:124px;margin-right:2.5px;cursor:pointer;" src="assets/images/add_imagen.jpg" data-nueva="False" data-id="0" data-tipo="2" onclick="$('#File_Detalle_3').click();">
-                  <div id="divBorrar_3" class="eliminar" style="display:none">
-                      <img title="Borrar" src="assets/images/eliminar_img.jpg" onclick="Borrar('File_Detalle_3', 'Img_Detalle_3', '/BackOfficeCre/Content/Imagenes/add_img2.png', 'divBorrar_3','File_Detalle_3' )">
-                  </div>
-              </div>
-              
-              <div  class="col-sm-3">
-                <input id="File_Detalle_4" type="file" class="fileClass detalle" style="display: none;" data-nro="4" accept=".png,.jpg,jpeg,.bmp,.gif">
-                  <img id="Img_Detalle_4" style="width:220px; height:124px;margin-right:2.5px;cursor:pointer;" src="assets/images/add_imagen.jpg" data-nueva="False" data-id="0" data-tipo="2" onclick="$('#File_Detalle_4').click();">
-                  <div id="divBorrar_4" class="eliminar" style="display:none">
-                      <img title="Borrar" src="src\assets\images\eliminar_img.jpg" onclick="Borrar('File_Detalle_4', 'Img_Detalle_4', '/BackOfficeCre/Content/Imagenes/add_img2.png', 'divBorrar_4','File_Detalle_4' )">
-                  </div>
-              </div>
             </div>
             <span>Tamaño de imagen: 640 x 926 px.</span>
           </div>
@@ -72,22 +71,22 @@
       
   
     <div class="form-group">
-      <mat-slide-toggle #estado formControlName="enabled">
-        <span>{{estado.checked?'Habilitado':'Deshabilitado'}}</span>
+      <mat-slide-toggle [checked]="(_requisito.estadorequisito === null || _requisito.estadorequisito === 'S')? true : false"  (change)="HabDesEstado($event)">
+        <span>{{(_requisito.estadorequisito === null || _requisito.estadorequisito === 'S')?'Habilitado':'Deshabilitado'}}</span>
       </mat-slide-toggle>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
       <mat-slide-toggle #configurar formControlName="enabled">
         <span>{{configurar.checked?'Configurar Enlaces':'No Configurar Enlaces'}}</span>
       </mat-slide-toggle>
-    </div>
+    </div> -->
   </form>
 </div>
 </mat-dialog-content>
 <div class="modal-footer">
   <button type="button" class="btn btn-outline-primary" 
-    (click)="this.close()">Cancelar</button>
+    (click)="this.close(null)">Cancelar</button>
   <button type="button" class="btn btn-primary" 
-    (click)="this.close()">Grabar</button>
+    (click)="this.grabarcallback()">Grabar</button>
 </div>
 

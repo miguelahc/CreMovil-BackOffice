@@ -18,7 +18,7 @@
               </div>
             </div>
             <button type="button" class="btn-icon" placement="bottom" [autoClose]="'outside'" [ngbPopover]="clickImgTemp" triggers="manual"
-              #p1="ngbPopover" (click)="p1.toggle();" (shown)="selectcheck($event)" 
+              #p1="ngbPopover" (click)="p1.toggle();"  
               popoverTitle="Permisos">
               <img src="assets/images/filtro.svg">
             </button>
@@ -32,8 +32,10 @@
 
 
 
-
-    <div class="columns document-list-container">
+    <div class="contenedor w-100 vh-100" id="spinner" *ngIf="load">
+      <div class="lds-dual-ring"><span style="font-size:25px">Cargando</span></div>
+    </div>
+    <div class="columns document-list-container" *ngIf="!load">
       <div class="documentTableStyle" >
         <div class="tableHeaderStyle columns">
           <div class="column is-3">Nombre </div>
@@ -45,13 +47,18 @@
         <div *ngFor="let perfil of listaperfiles | searchFilter: query | paginate: config">
           <div class="documentRowStyle columns" *ngIf="perfil.idperfil" (click)="openEditarPerfil(perfil)" >
             <div class="column is-3 documentName">{{perfil.nombreperfil}}</div>
-            <div class="column is-5">{{perfil.descripcionperfil}}</div>
-            <div class="column is-2"></div>
-            <div class="column is-2"><!-- <button class="ns-btn btn-danger --small" (click)="openBorrarPerfil(perfil.idperfil,$event)" data-toggle="tooltip" data-placement="bottom"
-              title="Borra el Perfil Seleccionado">Eliminar</button> --></div>
+            <div class="column is-5 documentName">{{perfil.descripcionperfil}}</div>
+            
+            <div class="column is-2"><button class="ns-btn btn-danger --small" (click)="openBorrarPerfil(perfil.idperfil,$event)" data-toggle="tooltip" data-placement="bottom"
+              title="Borra el Perfil Seleccionado">Eliminar</button> 
+            </div>
+            <div class="column is-2" (click)="$event.stopPropagation();">
+                <mat-slide-toggle [checked]="perfil.estadoperfil === 'S' ? true : false"  (change)="HabDesPerfil( perfil.idperfil, $event);" >
+                  <span>{{perfil.estadoperfil==='S'?'Habilitado':'Deshabilitado'}}</span>
+                </mat-slide-toggle>
+            </div>
             <div class="column tag-row"></div>
           </div>
-          
         </div>
       </div>
     </div>
@@ -183,7 +190,19 @@
 </div>
 
 <ng-template #clickImgTemp>
-  <div >
+  <ul class="listafiltro">
+    <li style="cursor:pointer;" [class.filter-selected] = "currentFilterSelected === null" (click)="filtro(null)" selected >
+      ( Todos )
+    </li>
+    <li  *ngFor="let opcion of opciones" (click)="filtro(opcion.id)" [class.filter-selected] = "opcion.id === currentFilterSelected">
+      {{opcion.nombre}}
+    </li>
+  </ul>
+  <!-- <select name="permisos" id="permisos" (change)="filtropermiso($event)">
+    <option [value]="null" disabled>( Todos )</option>
+    <option *ngFor="let perm of listapermisos" [value]="perm.idpermiso">{{perm.nombrepermiso}}</option>
+  </select>  -->
+  <!-- <div >
     <div class='form-check' (click)="selectcheck(1)" >
       <input type='checkbox' class='form-check-input'>
       <label class='form-check-label' >Perfiles</label>
@@ -213,7 +232,7 @@
       <input type='checkbox' class='form-check-input' >
       <label class='form-check-label' >Parametros</label>
     </div>
-  </div>
+  </div> -->
 </ng-template>
 
 
